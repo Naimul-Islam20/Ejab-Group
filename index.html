@@ -1586,9 +1586,17 @@
 
   <hr style="border-color:#444; margin:50px 0; max-width:1200px; margin-left:auto; margin-right:auto;">
 
-  <div style="max-width:1200px; margin:0 auto; text-align:center; font-size:14px;">
-    © 2025 Muktodhara
-  </div>
+<div style="max-width:1200px; margin:0 auto; text-align:center; font-size:14px;">
+  © <span id="year"></span> 
+  <a href="https://muktodharaltd.com/" target="_blank" style="color:inherit; text-decoration:none;">
+    Muktodhara Technology Limited
+  </a>
+</div>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 
 </footer>
 
@@ -1684,33 +1692,7 @@ $("#feedbackSubmit").click(function(event) {
 </script>
 
 
-<script type="text/javascript" nonce="12e79f7485925b1613753e56eee7ed3b">
-(function($) { "use strict";
-    $(document).ready(function() {  
-      $(".animsition").animsition({
-      
-        inClass               :   'fade-in',
-        outClass              :   'fade-out',
-        inDuration            :    1500,
-        outDuration           :    800,
-        linkElement           :   '.animsition-link', 
-        // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
-        loading               :    true,
-        loadingParentElement  :   'body', //animsition wrapper element
-        loadingClass          :   'animsition-loading',
-        unSupportCss          : [ 'animation-duration',
-                                  '-webkit-animation-duration',
-                                  '-o-animation-duration'
-                                ],
-        
-        overlay               :   false,
-        
-        overlayClass          :   'animsition-overlay-slide',
-        overlayParentElement  :   'body'
-      });
-    });  
-})(jQuery);
-</script>
+
 
 
 <script type="text/javascript" src="frontend/js/script.js"></script>  
