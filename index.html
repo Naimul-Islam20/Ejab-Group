@@ -1692,7 +1692,33 @@ $("#feedbackSubmit").click(function(event) {
 </script>
 
 
-
+<script type="text/javascript" nonce="12e79f7485925b1613753e56eee7ed3b">
+(function($) { "use strict";
+    $(document).ready(function() {  
+      $(".animsition").animsition({
+      
+        inClass               :   'fade-in',
+        outClass              :   'fade-out',
+        inDuration            :    1500,
+        outDuration           :    800,
+        linkElement           :   '.animsition-link', 
+        // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+        loading               :    false,
+        loadingParentElement  :   'body', //animsition wrapper element
+        loadingClass          :   'animsition-loading',
+        unSupportCss          : [ 'animation-duration',
+                                  '-webkit-animation-duration',
+                                  '-o-animation-duration'
+                                ],
+        
+        overlay               :   false,
+        
+        overlayClass          :   'animsition-overlay-slide',
+        overlayParentElement  :   'body'
+      });
+    });  
+})(jQuery);
+</script>
 
 
 <script type="text/javascript" src="frontend/js/script.js"></script>  
