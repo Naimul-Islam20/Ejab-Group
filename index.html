@@ -998,57 +998,73 @@
     </div>   
 </div>
      </div>
+
 <style>
   #custom-timeline {
     position: relative;
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/images/home/year.svg') no-repeat center center / cover;
-    padding: 250px 20px 100px;  /* Desktop padding */
+    padding: 250px 20px 100px;  
     color: #fff;
   }
 
   /* Mobile responsive */
   @media (max-width: 768px) {
     #custom-timeline {
-      padding-top: 100px; /* Desktop এর থেকে কম */
-      padding-left: 15px;
-      padding-right: 15px;
-      padding-bottom: 80px; /* চাইলে bottom কমানো */
+      padding-top: 80px; 
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 60px; 
     }
     #timeline-box-wrapper {
       height: 50px;
     }
     #timeline-box h2 {
-      font-size: 20px;
+      font-size: 14px;   /* Title ছোট */
     }
     #year-button {
-      font-size: 14px;
-      padding: 2px 10px;
+      font-size: 10px;   /* Button ছোট */
+      padding: 2px 6px;
     }
+    #timeline-years {
+      font-size: 10px;   /* Years ছোট */
+    }
+    #active-dot {
+      width: 12px;       
+      height: 12px;
+      top: -4px;
+    }
+  }
+
+  /* Active year highlight */
+  #timeline-years span {
+    transition: color 0.3s ease;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+  #timeline-years span.active {
+    color: #54A50A;
+    font-weight: bold;
   }
 </style>
 
 
- 
-<section id="custom-timeline" style="position: relative; 
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/images/home/year.svg') no-repeat center center / cover; 
-  padding: 250px 20px 100px;  
-  color: #fff;">
+<section id="custom-timeline">
   
-  <!-- Slide Wrapper (no box, button on top) -->
-  <div id="timeline-box-wrapper" style="text-align: center; margin-bottom: 60px; position: relative; overflow: hidden; height: 80px;">
-    <div id="timeline-box" style="display: inline-block; padding-top: 10px; transition: transform 0.5s ease, opacity 0.5s ease;">
-      <span id="year-button" style="display: inline-block; padding: 3px 15px; border: 1px solid #fff; color: #fff; font-size: 18px; border-radius: 4px; font-weight: 500; margin-bottom: 10px;">1976</span>
+  <!-- Slide Wrapper -->
+  <div id="timeline-box-wrapper" style="text-align: center; margin-bottom: 60px; position: relative; overflow: hidden; height: 130px;">
+    <div id="timeline-box" style="display: inline-block; padding: 20px; transition: transform 0.5s ease, opacity 0.5s ease;">
+      <span id="year-button" style="display: inline-block; padding: 6px 15px; border: 1px solid #fff; color: #fff; font-size: 20px; border-radius: 4px; font-weight: 600; margin-bottom: 10px;">1976</span>
       <h2 id="timeline-title" style="font-size: 28px; font-weight: bold; margin: 0;">Northern Agricultural & Ind. Co. Ltd.</h2>
     </div>
   </div>
 
   <!-- Timeline Line -->
   <div style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1200px;">
-    <div style="position: relative; height: 4px; background: #fff; border-radius: 2px;">
+    <div id="timeline-line" style="position: relative; height: 4px; background: #fff; border-radius: 2px;">
       <span id="active-dot" style="position: absolute; top: -8px; left: 0%; width: 20px; height: 20px; background: #54A50A; border-radius: 50%; transition: left 0.3s;"></span>
     </div>
 
-    <div id="timeline-years" style="display: flex; padding-bottom: 20px; justify-content: space-between; margin-top: 10px; font-size: 16px; cursor: pointer;">
+    <div id="timeline-years" style="display: flex; padding-bottom: 20px; justify-content: space-between; margin-top: 10px; font-size: 16px; cursor: pointer; position: relative;">
       <span data-title="Northern Agricultural & Ind. Co. Ltd." data-year="1976" data-pos="0%">1976</span>
       <span data-title="Ejab Agricultural & Ind. Co. Ltd." data-year="1989" data-pos="12.5%">1989</span>
       <span data-title="Northern Agricultural & Ind. Co. Ltd." data-year="1990" data-pos="25%">1990</span>
@@ -1069,16 +1085,25 @@ const timelineBox = document.getElementById('timeline-box');
 const title = document.getElementById('timeline-title');
 const yearButton = document.getElementById('year-button');
 const activeDot = document.getElementById('active-dot');
+const line = document.getElementById('timeline-line');
 let activeIndex = 0;
 let autoSlideInterval;
 
 // Initialize
-activeDot.style.left = years[0].dataset.pos;
-activeDot.style.transform = 'translateX(-50%)';
-yearButton.textContent = years[0].dataset.year;
-title.textContent = years[0].dataset.title;
+function setActive(index) {
+  activeDot.style.left = years[index].dataset.pos;
+  activeDot.style.transform = 'translateX(-50%)';
+  yearButton.textContent = years[index].dataset.year;
+  title.textContent = years[index].dataset.title;
 
-// Move Box together
+  years.forEach(y => y.classList.remove('active'));
+  years[index].classList.add('active');
+
+  activeIndex = index;
+}
+setActive(0);
+
+// Move Box
 function moveBox(newIndex) {
   if(newIndex === activeIndex) return;
 
@@ -1086,93 +1111,35 @@ function moveBox(newIndex) {
   const newTitle = years[newIndex].dataset.title;
   const newYear = years[newIndex].dataset.year;
 
-  // Slide out
   timelineBox.style.transition = 'none';
   timelineBox.style.transform = isRight ? 'translateX(100%)' : 'translateX(-100%)';
   timelineBox.style.opacity = '0';
-
   timelineBox.offsetHeight; // force reflow
 
-  // Update content
   title.textContent = newTitle;
   yearButton.textContent = newYear;
 
-  // Slide in
   timelineBox.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
   timelineBox.style.transform = 'translateX(0)';
   timelineBox.style.opacity = '1';
 
-  // Move dot
-  activeDot.style.left = years[newIndex].dataset.pos;
-  activeDot.style.transform = 'translateX(-50%)';
-
-  activeIndex = newIndex;
+  setActive(newIndex);
 }
 
-// Click events
-// Click events
+// Year click
 years.forEach((year, index) => {
-  year.style.position = 'absolute';
   year.style.left = year.dataset.pos;
-  year.style.transform = 'translateX(-50%)';
-
-  // click
   year.addEventListener('click', () => {
     moveBox(index);
     startAutoSlide();
   });
-
-  // hover (same kaj as click)
-  year.addEventListener('mouseover', () => {
-    moveBox(index);
-    startAutoSlide();
-  });
 });
 
-
-// dot click/hover = current year select
-activeDot.addEventListener('click', () => {
-  moveBox(activeIndex);
-  startAutoSlide();
-});
-activeDot.addEventListener('mouseover', () => {
-  moveBox(activeIndex);
-  startAutoSlide();
-});
-
-let isDragging = false;
-
-activeDot.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  clearInterval(autoSlideInterval); // drag করলে auto-slide বন্ধ হবে
-});
-
-document.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-
-  const line = activeDot.parentElement; 
+// Line hover (desktop) + touch (mobile)
+function handleLineHover(e) {
   const rect = line.getBoundingClientRect();
   let percent = ((e.clientX - rect.left) / rect.width) * 100;
 
-  // সীমা ঠিক করা
-  if (percent < 0) percent = 0;
-  if (percent > 100) percent = 100;
-
-  // drag করার সময় শুধু dot move করবে
-  activeDot.style.transition = "none"; // drag চলাকালে smoothness কেটে দাও
-  activeDot.style.left = percent + "%";
-  activeDot.style.transform = "translateX(-50%)";
-});
-
-document.addEventListener('mouseup', (e) => {
-  if (!isDragging) return;
-  isDragging = false;
-
-  const line = activeDot.parentElement;
-  const rect = line.getBoundingClientRect();
-  let percent = ((e.clientX - rect.left) / rect.width) * 100;
-
-  // সবচেয়ে কাছের year বের করা
   let nearestIndex = 0;
   let minDiff = Infinity;
   years.forEach((year, i) => {
@@ -1184,19 +1151,17 @@ document.addEventListener('mouseup', (e) => {
     }
   });
 
-  // dot কে snap করাও
-  activeDot.style.transition = "left 0.3s ease"; 
-  activeDot.style.left = years[nearestIndex].dataset.pos;
-  activeDot.style.transform = "translateX(-50%)";
-
-  // title + year আপডেট করো
   moveBox(nearestIndex);
+}
 
-  // আবার auto-slide চালু করো
-  startAutoSlide();
+line.addEventListener('mousemove', (e) => {
+  handleLineHover(e);
 });
 
-
+// Mobile touch
+line.addEventListener('touchmove', (e) => {
+  handleLineHover(e.touches[0]);
+});
 
 // Auto slide
 function startAutoSlide() {
@@ -1207,8 +1172,6 @@ function startAutoSlide() {
     moveBox(nextIndex);
   }, 2000);
 }
-
-// Start auto slide
 startAutoSlide();
 </script>
 
@@ -1308,142 +1271,110 @@ startAutoSlide();
        
      <!-- CSR
             ================================================== -->
-    <section id="blog" class="page-section sp-top-bottom60" style="background-color:#fff;">
-    <div class="container" style="margin-bottom:35px;">                              
-    <div class="section-title-1 text-center" data-sr="enter bottom over 0.8s and move 140px">
-        <h1 class="hs3 fw400 lp2 webfont3 sm-bottom10" style="margin-bottom:10px;">
-            <span style="color:#8ED053; font-weight:1000 !important;">Giving  </span> 
-            <span style="color:black; font-weight:900 !important;">Back</span>
-        </h1>
-        <h3 class="hs2 fw400 lp3 webfont1 sm-bottom0 color-black" style="margin-bottom:15px;">
-            It is the duty of the river to quench all drought
-        </h3>
-    </div>   
-</div>
+<section id="blog" class="page-section sp-top-bottom60" style="background-color:#fff;">
+  <div class="container" style="margin-bottom:35px;">                              
+      <div class="section-title-1 text-center" data-sr="enter bottom over 0.8s and move 140px">
+          <h1 class="hs3 fw400 lp2 webfont3 sm-bottom10" style="margin-bottom:10px;">
+              <span style="color:#8ED053; font-weight:1000 !important;">Giving  </span> 
+              <span style="color:black; font-weight:900 !important;">Back</span>
+          </h1>
+          <h3 class="hs2 fw400 lp3 webfont1 sm-bottom0 color-black" style="margin-bottom:15px;">
+              It is the duty of the river to quench all drought
+          </h3>
+      </div>   
+  </div>
 
-   
+  <div class="container work-container position-relative">
+      <div id="newsSlider" class="projects-wrapper works-grid work-grid-3 work-grid-gut masonry pg3_masonry_gallery clearfix d-flex overflow-hidden" style="gap:20px;">
 
-    <div class="container work-container position-relative">
-        <div id="newsSlider" class="projects-wrapper works-grid work-grid-3 work-grid-gut masonry pg3_masonry_gallery clearfix d-flex overflow-hidden" style="gap:20px;">
+          <!-- Image Item 1 -->
+          <div class="work-item photography" style="overflow:hidden; border-radius:8px; height:450px;">
+            <a class="work-lightbox mfp-image" href="assets/images/home/giving3.png" style="display:block; position:relative; height:100%;">
+              <div class="gallery-wrap" style="height:100%; position:relative;">
+                <img src="assets/images/home/n3.jpg" alt="" style="width:100%; height:70%; object-fit:cover; display:block;">
+                <div class="overlay-text" style="position:absolute; bottom:0; left:0; width:100%; color:#000; padding:10px;">
+                  <div class="date" style="display:inline-flex; gap:6px; font-size:14px; margin-bottom:8px;">
+                    <i class="fa-solid fa-calendar-days" style="color:#8ED053;"></i>
+                    <span>15 Sept 2025</span>
+                  </div>
+                  <h4 style="font-size:16px; margin:0; margin-top:5px;">Emergency Relief to Flood Affected Sylhet</h4>
+                  <button style="margin-top:12px; letter-spacing:2px; background:none; border:none; color:#000; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0;">
+                    Read More <i class="fa-solid fa-arrow-right" style="color:#8ED053;"></i>
+                  </button>
+                </div>
+              </div>
+            </a>
+          </div>
 
-            <!-- Image Item 1 -->
- 
+          <!-- Image Item 2 -->
+          <div class="work-item photography" style="overflow:hidden; border-radius:8px; height:450px;">
+            <a class="work-lightbox mfp-image" href="assets/images/home/giving2.png" style="display:block; position:relative; height:100%;">
+              <div class="gallery-wrap" style="height:100%; position:relative;">
+                <img src="assets/images/home/giving2.png" alt="" style="width:100%; height:70%; object-fit:cover; display:block;">
+                <div class="overlay-text" style="position:absolute; bottom:0; left:0; width:100%; color:#000; padding:10px;">
+                  <div class="date" style="display:inline-flex; gap:6px; font-size:14px; margin-bottom:8px;">
+                    <i class="fa-solid fa-calendar-days" style="color:#8ED053;"></i>
+                    <span>15 Sept 2025</span>
+                  </div>
+                  <h4 style="font-size:16px; margin:0; margin-top:5px;">Emergency Relief to Flood Affected Sylhet</h4>
+                  <button style="margin-top:12px; letter-spacing:2px; background:none; border:none; color:#000; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0;">
+                    Read More <i class="fa-solid fa-arrow-right" style="color:#8ED053;"></i>
+                  </button>
+                </div>
+              </div>
+            </a>
+          </div>
 
-          <div class="work-item photography" data-sr="enter left over 0.8s and move 640px" style="overflow:hidden; border-radius:8px; height:450px;">
-  <a class="work-lightbox mfp-image" href="assets/images/home/giving3.png" data-sr="enter bottom over 0.8s" style="display:block; position:relative; height:100%;">
-    <div class="gallery-wrap" style="height:100%; position:relative;">
-
-      <!-- Image -->
-      <img src="assets/images/home/n3.jpg" alt="" 
-           style="width:100%; height:70%; object-fit:cover; display:block; transform:none !important; transition:none !important;">
-
-      <!-- Overlay Text -->
-      <div style="position:absolute; bottom:0; left:0; width:100%;  color:#000; padding:10px;">
-        
-        <!-- Date with calendar icon -->
-        <div style="display:inline-flex;  gap:6px; font-size:14px; margin-bottom:8px; padding:0px 0px;  ">
-          <i class="fa-solid fa-calendar-days" style="color:#8ED053;"></i>
-          <span>15 Sept 2025</span>
-        </div>
-
-        <!-- Title -->
-        <h4 class="hs1 fw400 lp1 webfont1 color-dark" 
-            style="font-size:16px; margin:0; margin-top:5px;">
-          Emergency Relief to Flood Affected Sylhet
-        </h4>
-
-        <!-- Read More button with arrow -->
-        <button style="margin-top:12px; letter-spacing:2px; background:none; border:none; color:#000; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0;">
-          Read More 
-          <i class="fa-solid fa-arrow-right" style="color:#8ED053;"></i>
-        </button>
-
-      </div>
-    </div>
-  </a>
-</div>
-
-
-
-            <!-- Image Item 2 -->
-               <div class="work-item photography" data-sr="enter left over 0.8s and move 640px" style="overflow:hidden; border-radius:8px; height:450px;">
-  <a class="work-lightbox mfp-image" href="assets/images/home/giving2.png" data-sr="enter bottom over 0.8s" style="display:block; position:relative; height:100%;">
-    <div class="gallery-wrap" style="height:100%; position:relative;">
-
-      <!-- Image -->
-      <img src="assets/images/home/giving2.png" alt="" 
-           style="width:100%; height:70%; object-fit:cover; display:block; transform:none !important; transition:none !important;">
-
-      <!-- Overlay Text -->
-      <div style="position:absolute; bottom:0; left:0; width:100%;  color:#000; padding:10px;">
-        
-        <!-- Date with calendar icon -->
-        <div style="display:inline-flex;  gap:6px; font-size:14px; margin-bottom:8px; padding:0px 0px;  ">
-          <i class="fa-solid fa-calendar-days" style="color:#8ED053;"></i>
-          <span>15 Sept 2025</span>
-        </div>
-
-        <!-- Title -->
-        <h4 class="hs1 fw400 lp1 webfont1 color-dark" 
-            style="font-size:16px; margin:0; margin-top:5px;">
-          Emergency Relief to Flood Affected Sylhet
-        </h4>
-
-        <!-- Read More button with arrow -->
-        <button style="margin-top:12px; letter-spacing:2px; background:none; border:none; color:#000; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0;">
-          Read More 
-          <i class="fa-solid fa-arrow-right" style="color:#8ED053;"></i>
-        </button>
+          <!-- Image Item 3 -->
+          <div class="work-item photography" style="overflow:hidden; border-radius:8px; height:450px;">
+            <a class="work-lightbox mfp-image" href="assets/images/home/giving1.png" style="display:block; position:relative; height:100%;">
+              <div class="gallery-wrap" style="height:100%; position:relative;">
+                <img src="assets/images/home/giving1.png" alt="" style="width:100%; height:70%; object-fit:cover; display:block;">
+                <div class="overlay-text" style="position:absolute; bottom:0; left:0; width:100%; color:#000; padding:10px;">
+                  <div class="date" style="display:inline-flex; gap:6px; font-size:14px; margin-bottom:8px;">
+                    <i class="fa-solid fa-calendar-days" style="color:#8ED053;"></i>
+                    <span>15 Sept 2025</span>
+                  </div>
+                  <h4 style="font-size:16px; margin:0; margin-top:5px;">Emergency Relief to Flood Affected Sylhet</h4>
+                  <button style="margin-top:12px; letter-spacing:2px; background:none; border:none; color:#000; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0;">
+                    Read More <i class="fa-solid fa-arrow-right" style="color:#8ED053;"></i>
+                  </button>
+                </div>
+              </div>
+            </a>
+          </div>
 
       </div>
-    </div>
-  </a>
-</div>
+  </div>
 
+  <!-- Mobile adjustments -->
+  <style>
+    @media (max-width: 767.98px) {
+      #newsSlider {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      #newsSlider .work-item {
+        width: 100% !important;
+        height: 300px !important;
+        margin-bottom: 10px !important; /* box গুলোর vertical gap কমানো */
+      }
+      #newsSlider .overlay-text .date {
+        font-size: 12px !important;  /* mobile এ date ছোট করা */
+        margin-bottom: 4px !important;
+      }
+      #newsSlider .overlay-text h4 {
+        font-size: 14px !important;  /* mobile এ h4 ছোট করা */
+        margin-top: 2px !important;
+      }
+      #newsSlider .overlay-text button {
+        font-size: 12px !important;  /* Read more ছোট করা */
+        margin-top: 6px !important;
+      }
+    }
+  </style>
+</section>
 
-            <!-- Image Item 3 -->
-                  <div class="work-item photography" data-sr="enter left over 0.8s and move 640px" style="overflow:hidden; border-radius:8px; height:450px;">
-  <a class="work-lightbox mfp-image" href="assets/images/home/giving1.png" data-sr="enter bottom over 0.8s" style="display:block; position:relative; height:100%;">
-    <div class="gallery-wrap" style="height:100%; position:relative;">
-
-      <!-- Image -->
-      <img src="assets/images/home/giving1.png" alt="" 
-           style="width:100%; height:70%; object-fit:cover; display:block; transform:none !important; transition:none !important;">
-
-      <!-- Overlay Text -->
-      <div style="position:absolute; bottom:0; left:0; width:100%;  color:#000; padding:10px;">
-        
-        <!-- Date with calendar icon -->
-        <div style="display:inline-flex;  gap:6px; font-size:14px; margin-bottom:8px; padding:0px 0px;  ">
-          <i class="fa-solid fa-calendar-days" style="color:#8ED053;"></i>
-          <span>15 Sept 2025</span>
-        </div>
-
-        <!-- Title -->
-        <h4 class="hs1 fw400 lp1 webfont1 color-dark" 
-            style="font-size:16px; margin:0; margin-top:5px;">
-          Emergency Relief to Flood Affected Sylhet
-        </h4>
-
-        <!-- Read More button with arrow -->
-        <button style="margin-top:12px; letter-spacing:2px; background:none; border:none; color:#000; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0;">
-          Read More 
-          <i class="fa-solid fa-arrow-right" style="color:#8ED053;"></i>
-        </button>
-
-      </div>
-    </div>
-  </a>
-</div>
-
-
-
-
-        </div>
-        
-
-
-</section> 
         
  <!------------------- Newses ------------------------------->
   <section id="blog" class="page-section sp-top-bottom60" style="background-color:#fff;">

@@ -73,4 +73,101 @@
 
 
 
-  
+  @media (max-width: 768px) {
+  /* Left side image + text */
+  .col-md-6 h2 {
+    font-size: 1.4rem !important;   /* Title ছোট */
+    padding: 8px 12px !important;   /* ভেতরের gap কম */
+  }
+
+  /* Right side heading */
+  .col-md-6 h3 {
+    font-size: 1.2rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  /* Form inputs ছোট */
+  form .form-control {
+    font-size: 0.9rem !important;
+    padding: 8px 12px !important;
+  }
+
+  /* Textarea height ছোট */
+  form textarea {
+    min-height: 100px !important;
+  }
+
+  /* Row height ছোট */
+  .row[style*="min-height:70vh"] {
+    min-height: 50vh !important;
+  }
+
+  /* Column min-height ছোট */
+  .col-md-6[style*="min-height:300px"] {
+    min-height: 200px !important;
+    padding: 20px 15px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  /* প্রতিটা input group এর gap কমানো */
+  form .form-group,
+  form .form-row {
+    margin-bottom: 10px !important;
+  }
+
+  /* Input & textarea padding ছোট */
+  form .form-control {
+    font-size: 0.9rem !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Textarea height ছোট */
+  form textarea {
+    min-height: 90px !important;
+  }
+}
+
+
+
+
+
+
+     @media (max-width: 767.98px) {
+          /* পুরো section এর padding কমানো */
+          #blog {
+              padding-top: 20px !important;
+              padding-bottom: 20px !important;
+          }
+
+          /* container এর bottom margin কমানো */
+          #blog .container {
+              margin-bottom: 15px !important;
+          }
+
+          /* newsSlider কে column বানানো */
+          #newsSlider {
+              display: flex !important;
+              flex-direction: column !important;
+          }
+
+          /* প্রতিটি news box এর gap & size */
+          #newsSlider .work-item {
+              width: 100% !important;
+              height: 340px !important;
+              margin-bottom: 10px !important; /* কম gap */
+          }
+
+          /* button এর উপরের নিচের gap কমানো */
+          #blog > .container:last-child > div {
+              margin-top: 5px !important;
+              margin-bottom: 5px !important;
+          }
+
+          /* button ছোট করা */
+          #blog button {
+              font-size: 16px !important;
+              padding: 8px 26px !important;
+          }
+      }
