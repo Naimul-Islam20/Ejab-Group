@@ -171,3 +171,20 @@
               padding: 8px 26px !important;
           }
       }
+
+
+
+   
+/* Mobile-only: specific sections gap কমানো */
+@media (max-width: 767.98px) {
+    .mobile-gap-reduce {
+        padding-top: 30px !important;    /* উপরের gap কমানো */
+        padding-bottom: 30px !important; /* নিচের gap কমানো */
+    }
+
+    .mobile-gap-reduce .container {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+}
+
