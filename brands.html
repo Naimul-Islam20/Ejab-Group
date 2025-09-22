@@ -14,9 +14,7 @@
     <meta name="keywords" content="Ejab, Group, Industries, Bangladesh, "/>
     <meta name="author" content="Ejab Distribution Ltd."/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- CSS
-    ================================================== -->  
-    <!--A dead simple, responsive boilerplate-->
+
 <link rel="stylesheet" href="frontend/css/base.css"/>
 <link rel="stylesheet" href="frontend/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="frontend/css/skeleton.css"/>    
@@ -72,7 +70,7 @@
     
   <div class="mobile-menu-nav">
         <div class="mobile-menu-inner"></div>
-    </div><!--ssd !-->
+    </div>
     
       <div class="transparent-header opacity-0 light-header">
    <div class="header-wrap header-1">
@@ -641,6 +639,49 @@
 
   </div>
 </section>
+<style>
+/* Mobile responsive adjustments */
+@media (max-width: 576px) {
+  /* Container padding কমানো */
+  .container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  /* Heading ছোট করা */
+  h2 {
+    font-size: 1.4rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Paragraph text ছোট করা */
+  p {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Image width কমানো, float remove */
+  .col-md-6 img {
+    max-width: 100% !important;
+    height: auto !important;
+    float: none !important;
+    display: block;
+    margin: 0 auto 15px auto; /* centered with bottom margin */
+  }
+
+  /* Row gap কমানো */
+  .row.align-items-center {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .col-md-6 {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    margin-bottom: 15px;
+  }
+}
+</style>
 
    </section>
 
@@ -761,7 +802,7 @@
 
 <div style="max-width:1200px; margin:0 auto; text-align:center; font-size:14px; padding-bottom:15px;">
   © <span id="year"></span> 
-  <a href="https://muktodharaltd.com/" target="_blank" style="color:inherit; text-decoration:none;">
+  <a href="https://muktodharaltd.com/" target="_blank" style="color:inherit;  text-decoration:underline;">
     Muktodhara Technology Limited
   </a>
 </div>
@@ -795,7 +836,7 @@
 
     </div>
 <!-- JARVIS THEME SCRIPTS -->
-/* <script type="text/javascript" src="frontend/js/jquery-migrate-1.2.1.min.js"></script> */
+
 <script type="text/javascript" src="frontend/js/modernizr.custom.js"></script>
 <script type="text/javascript" src="frontend/js/jquery.sticky.js"></script>
 <script type="text/javascript" src="frontend/js/jquery.countTo.js"></script>
