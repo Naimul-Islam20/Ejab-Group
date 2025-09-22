@@ -124,7 +124,7 @@
 
     <nav class="main-nav main-nav-style4">
         <ul id="menu-main-menu" class="menu clearfix webfont1">
-              
+             
            <li class="menu-item">  
             
             <a href="index.html" class="active"><span class="inner-menu">
@@ -581,126 +581,126 @@
             ==================================================  --> 
            <section class="page-section bg_color--6 sp-top40 sp-bottom0" id="scroll-link" 
          style="background-color:#fff;">
-
-
-<section style="padding:40px 0;"> 
+<section style="padding:40px 0;">
   <div class="container">
-
-    <!-- Top Title -->
-    <h2 style="color:#54A50A; font-weight:700; font-size:2rem; margin-bottom:5px; text-align:left;">
-      Our Product
-    </h2>
-
-    <!-- Line Section -->
-    <div class="d-flex justify-content-between align-items-center" 
-         style="border-bottom:1px solid #ccc; padding-bottom:15px; margin-bottom:20px;">
-      <h2 style="margin:0; font-weight:600; font-size:2rem; color:#000;">
-        Kiddo Product List
-      </h2>
-      <img src="assets/images/products/icon1.png" alt="icon" 
-           style="width:134px; height:114px; object-fit:contain;">
-    </div>
-
     <!-- Buttons -->
-    <div class="d-flex  " style="gap:20px;">
-      <span class="px-3 py-2 rounded-pill filter-btn active" data-category="chips"
+    <div class="d-flex flex-wrap" style="gap:10px;">
+      <span class="px-3 py-2 rounded-pill filter-btn active" data-office="dhaka"
             style="cursor:pointer;border-radius: 7px; font-size:1rem; border:1px solid #54A50A; color:#fff; background:#54A50A;">
-        Chips
+        Dhaka Office
       </span>
-      <span class="px-3 py-2 rounded-pill filter-btn" data-category="cake"
+      <span class="px-3 py-2 rounded-pill filter-btn" data-office="ctg"
             style="cursor:pointer;border-radius: 7px; font-size:1rem; border:1px solid #54A50A; color:#54A50A; background:#fff;">
-        Cake
+        CTG Office
       </span>
-      <span class="px-3 py-2 rounded-pill filter-btn" data-category="biscuits"
+      <span class="px-3 py-2 rounded-pill filter-btn" data-office="khulna"
             style="cursor:pointer;border-radius: 7px; font-size:1rem; border:1px solid #54A50A; color:#54A50A; background:#fff;">
-        Biscuits
+        Khulna Office
+      </span>
+      <span class="px-3 py-2 rounded-pill filter-btn" data-office="marketing"
+            style="cursor:pointer;border-radius: 7px; font-size:1rem; border:1px solid #54A50A; color:#54A50A; background:#fff;">
+        Marketing
       </span>
     </div>
 
-    <!-- Product Row -->
-    <div class="row" id="product-list" style="margin-top:30px;">
-      <!-- এখানে ডাইনামিক ডেটা আসবে -->
+    <!-- Team Row -->
+    <div class="row" id="team-list" style="margin-top:30px;">
+      <!-- ডাইনামিক ডেটা এখানে আসবে -->
     </div>
-
   </div>
 </section>
 
 <script>
-  // ডেটা সেট
-  const products = {
-    chips: [
-      {img: "assets/images/products/product1.png", text: "Crispy potato chips"},
-      {img: "assets/images/products/product1.png", text: "Spicy masala chips"},
-      {img: "assets/images/products/product1.png", text: "Tangy tomato chips"},
-      {img: "assets/images/products/product1.png", text: "Salted crunchy chips"}
-    ],
-    cake: [
-      {img: "assets/images/products/product1.png", text: "Delicious chocolate cake"},
-      {img: "assets/images/products/product1.png", text: "Strawberry creamy cake"},
-      {img: "assets/images/products/product1.png", text: "Vanilla soft cake"},
-      {img: "assets/images/products/product1.png", text: "Red velvet cake"}
-    ],
-    biscuits: [
-      {img: "assets/images/products/product1.png", text: "Butter milk biscuits"},
-      {img: "assets/images/products/product1.png", text: "Crispy chocolate biscuits"},
-      {img: "assets/images/products/product1.png", text: "Sweet coconut biscuits"},
-      {img: "assets/images/products/product1.png", text: "Salted crunch biscuits"}
-    ]
-  };
+const team = {
+  dhaka: [
+    {img: "assets/images/products/team1.png", name: "Rashed Khan", position: "Manager"},
+    {img: "assets/images/products/team1.png", name: "Ayesha Rahman", position: "Designer"},
+    {img: "assets/images/products/team1.png", name: "Jahid Hossain", position: "Developer"},
+    {img: "assets/images/products/team1.png", name: "Sumaiya Akter", position: "Marketing"}
+  ],
+  ctg: [
+    {img: "assets/images/products/team1.png", name: "Tanvir Ahmed", position: "Manager"},
+    {img: "assets/images/products/team1.png", name: "Fariha Sultana", position: "Designer"},
+    {img: "assets/images/products/team1.png", name: "Nayeem Uddin", position: "Developer"},
+    {img: "assets/images/products/team1.png", name: "Sabrina Akhter", position: "Marketing"}
+  ],
+  khulna: [
+    {img: "assets/images/products/team1.png", name: "Imran Hossain", position: "Manager"},
+    {img: "assets/images/products/team1.png", name: "Lima Khatun", position: "Designer"},
+    {img: "assets/images/products/team1.png", name: "Rafiq Ahmed", position: "Developer"},
+    {img: "assets/images/products/team1.png", name: "Nusrat Jahan", position: "Marketing"}
+  ],
+  marketing: [
+    {img: "assets/images/products/team1.png", name: "Tanvir Ahmed", position: "Manager"},
+    {img: "assets/images/products/team1.png", name: "Fariha Sultana", position: "Designer"},
+    {img: "assets/images/products/team1.png", name: "Nayeem Uddin", position: "Developer"},
+    {img: "assets/images/products/team1.png", name: "Sabrina Akhter", position: "Marketing"}
+  ]
+};
 
-  // প্রোডাক্ট লোড ফাংশন
-  function loadProducts(category) {
-    const container = document.getElementById("product-list");
-    container.innerHTML = ""; // clear
+function loadTeam(office) {
+  const container = document.getElementById("team-list");
+  container.innerHTML = "";
 
-    products[category].forEach(item => {
-      container.innerHTML += `
-<div class="col-6 col-md-3 mb-5">
-  <div class="d-flex flex-column h-100 " 
-       style="border-radius:12px;">
-
-    <!-- Image -->
-    <img src="${item.img}" alt="Product" 
-         style="width:100%; height:220px; object-fit:cover; border-radius:12px;">
-
-    <!-- Bottom fixed part -->
-    <div class="mt-auto" style="padding-top:15px;">
-      <div style="padding:6px 14px; display:inline-block; 
-                  border:1px solid #54A50A; border-radius:5px; 
-                  font-weight:600; color:#54A50A;">
-        Kiddo
-      </div>
-      <p style="margin-top:12px; font-size:1rem; color:#000;">
-        ${item.text}
-      </p>
-    </div>
-
+  team[office].forEach(member => {
+    container.innerHTML += `
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4">
+<div class="team-card position-relative" style="border-radius:12px; overflow:hidden; background:#eee;">
+  <img src="${member.img}" alt="${member.name}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+  <div class="team-overlay" style="position:absolute; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.6); color:#fff; padding:10px;">
+    <h5>${member.name}</h5>
+    <p>${member.position}</p>
   </div>
 </div>
 
-      `;
+      </div>
+    `;
+  });
+}
+
+// প্রথমে Dhaka লোড
+loadTeam("dhaka");
+
+// বাটনে ক্লিক করলে লোড হবে
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    // Active class handle
+    document.querySelectorAll(".filter-btn").forEach(b => {
+      b.style.background = "#fff";
+      b.style.color = "#54A50A";
     });
+    this.style.background = "#54A50A";
+    this.style.color = "#fff";
+
+    const office = this.getAttribute("data-office");
+    loadTeam(office);
+  });
+});
+</script>
+<style>
+.team-overlay h5 { font-size: 1rem; margin:0; font-weight:700; }
+.team-overlay p  { font-size: 0.9rem; margin:0; }
+
+/* Mobile adjustment */
+@media (max-width: 576px) {
+  .team-overlay h5 { font-size: 0.75rem; }
+  .team-overlay p  { font-size: 0.65rem; }
+  
+  /* Box height mobile-এ কমানো */
+  .team-card {
+    min-height: 130px; /* desktop: 250px, mobile: 180px */
   }
 
-  // প্রথমে chips লোড করব
-  loadProducts("chips");
-
-  // বাটনে ক্লিক করলে লোড হবে
-  document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", function() {
-      // Active class handle
-      document.querySelectorAll(".filter-btn").forEach(b => {
-        b.style.background = "#fff";
-        b.style.color = "#54A50A";
-      });
-      this.style.background = "#54A50A";
-      this.style.color = "#fff";
-
-      const category = this.getAttribute("data-category");
-      loadProducts(category);
-    });
-  });
-</script>
+  .team-overlay {
+    padding:1px; /* overlay tight */
+  }
+  .team-overlay p  { 
+  font-size: 0.9rem; 
+  margin:0; 
+  color: #d8d8d8; /* position color white */
+}
+}
+</style>
 
 
    </section>
