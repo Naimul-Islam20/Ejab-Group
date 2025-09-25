@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owl Carousel Gallery with Tabs</title>
+
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+  
+  <!-- Lightbox CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align:center;
+      margin-bottom:20px;
+    }
+
+    /* Tabs */
+    .tabs {
+      text-align:center;
+      margin-bottom:20px;
+    }
+    .tabs button {
+      background: #eee;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .tabs button.active {
+      background: #54A50A;
+      color: #fff;
+    }
+
+    .owl-carousel .item {
+      text-align: center;
+      padding: 10px; 
+    }
+
+    .owl-carousel .item img {
+      width: 100%;
+      height: 240px; 
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .item-desc {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    /* Hover Nav Buttons */
+    .owl-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      opacity: 0; 
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .owl-carousel:hover .owl-nav {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Mobile always show nav */
+    @media (max-width: 768px) {
+      .owl-nav {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+    }
+
+    .owl-nav button {
+      background: rgba(0,0,0,0.5) !important;
+      color: #fff !important;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .owl-nav button:hover {
+      background: rgba(0,0,0,0.8) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Our Products</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-category="chips">Chips</button>
+      <button class="tab-btn" data-category="cake">Cake</button>
+      <button class="tab-btn" data-category="other">Other</button>
+    </div>
+
+    <!-- Carousel -->
+    <div class="owl-carousel owl-theme"></div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- Lightbox JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+  <script>
+    const galleryData = {
+      chips: [
+        {img:"https://picsum.photos/id/1015/400/250", big:"https://picsum.photos/id/1015/1200/800", desc:"Crispy Potato Chips"},
+        {img:"https://picsum.photos/id/1025/400/250", big:"https://picsum.photos/id/1025/1200/800", desc:"Spicy Masala Chips"},
+        {img:"https://picsum.photos/id/1035/400/250", big:"https://picsum.photos/id/1035/1200/800", desc:"Cheese Flavored Chips"},
+        {img:"https://picsum.photos/id/1045/400/250", big:"https://picsum.photos/id/1045/1200/800", desc:"Tangy Tomato Chips"},
+        {img:"https://picsum.photos/id/1055/400/250", big:"https://picsum.photos/id/1055/1200/800", desc:"Sweet Corn Chips"},
+        {img:"https://picsum.photos/id/1065/400/250", big:"https://picsum.photos/id/1065/1200/800", desc:"Barbecue Chips"}
+      ],
+      cake: [
+        {img:"https://picsum.photos/id/1075/400/250", big:"https://picsum.photos/id/1075/1200/800", desc:"Chocolate Cake"},
+        {img:"https://picsum.photos/id/1085/400/250", big:"https://picsum.photos/id/1085/1200/800", desc:"Vanilla Cake"},
+        {img:"https://picsum.photos/id/1095/400/250", big:"https://picsum.photos/id/1095/1200/800", desc:"Strawberry Cake"},
+        {img:"https://picsum.photos/id/1105/400/250", big:"https://picsum.photos/id/1105/1200/800", desc:"Red Velvet Cake"}
+      ],
+      other: [
+        {img:"https://picsum.photos/id/1115/400/250", big:"https://picsum.photos/id/1115/1200/800", desc:"Donuts"},
+        {img:"https://picsum.photos/id/1125/400/250", big:"https://picsum.photos/id/1125/1200/800", desc:"Cupcake"},
+        {img:"https://picsum.photos/id/1135/400/250", big:"https://picsum.photos/id/1135/1200/800", desc:"Muffin"},
+        {img:"https://picsum.photos/id/1145/400/250", big:"https://picsum.photos/id/1145/1200/800", desc:"Brownie"}
+      ]
+    };
+
+    const $carousel = $('.owl-carousel');
+
+    function loadGallery(category){
+      // Destroy previous carousel if exists
+      if($carousel.hasClass('owl-loaded')){
+        $carousel.trigger('destroy.owl.carousel');
+        $carousel.html('');
+      }
+
+      // Append new items
+      galleryData[category].forEach(item => {
+        const html = `
+          <div class="item">
+            <a href="${item.big}" data-lightbox="gallery">
+              <img src="${item.img}" alt="">
+            </a>
+            <div class="item-desc">${item.desc}</div>
+          </div>
+        `;
+        $carousel.append(html);
+      });
+
+      // Re-init carousel
+      $carousel.owlCarousel({
+        items:4,
+        loop:true,
+        margin:10,
+        nav:true,
+        dots:false,
+        autoplay:true,
+        autoplayTimeout:3000,
+        smartSpeed:600,
+        responsive:{
+          0:{ items:1 },
+          600:{ items:2 },
+          1000:{ items:4 }
+        }
+      });
+    }
+
+    $(document).ready(function(){
+      // Load default category
+      loadGallery('chips');
+
+      // Tab click
+      $('.tab-btn').click(function(){
+        $('.tab-btn').removeClass('active');
+        $(this).addClass('active');
+        const category = $(this).data('category');
+        loadGallery(category);
+      });
+    });
+  </script>
+
+</body>
+</html>
